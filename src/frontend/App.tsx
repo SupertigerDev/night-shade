@@ -1,12 +1,9 @@
-// import style from "./App.module.scss";
-import { BrightnessPane } from "./components/BrightnessPane";
+import { AppPage } from "./AppPage";
+import { OverlayPage } from "./OverlayPage";
 
 function App() {
-  return (
-    <>
-      <BrightnessPane />
-    </>
-  );
+  const isOverlay = location.search.includes("overlay");
+  return isOverlay ? <OverlayPage /> : <AppPage />;
 }
 
 export default App;

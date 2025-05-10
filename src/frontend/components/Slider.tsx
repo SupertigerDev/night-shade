@@ -3,6 +3,7 @@ import style from "./Slider.module.scss";
 
 interface SliderProps {
   onChange?: (percent: number) => void;
+  onEnd?: (percent: number) => void;
   percent: number;
   iconSrc?: string;
 }
@@ -10,14 +11,16 @@ export const Slider = (props: SliderProps) => {
   const startPos = useRef(0);
   const startWidth = useRef(0);
   const slider = useRef<HTMLDivElement>(null);
+  const wasMouseDown = useRef(false);
   const [container, setContainer] = useState<HTMLDivElement | null>(null);
 
   const getPercentage = useCallback(() => {
     const containerWidth = container!.offsetWidth - 36;
     const sliderWidth = slider.current!.offsetWidth - 36;
 
-    return (sliderWidth / containerWidth) * 100;
+    return Math.round((sliderWidth / containerWidth) * 100);
   }, [container]);
+
   const onMouseMove = useCallback(
     (e: MouseEvent) => {
       const distance = e.clientX - startPos.current;
@@ -33,6 +36,7 @@ export const Slider = (props: SliderProps) => {
 
   const onMouseDown = useCallback(
     (e: React.MouseEvent<HTMLDivElement>) => {
+      wasMouseDown.current = true;
       startPos.current = e.clientX;
       startWidth.current = slider.current!.offsetWidth;
       document.addEventListener("mousemove", onMouseMove);
@@ -41,8 +45,12 @@ export const Slider = (props: SliderProps) => {
   );
 
   const onMouseUp = useCallback(() => {
-    document.removeEventListener("mousemove", onMouseMove);
-  }, [onMouseMove]);
+    if (wasMouseDown.current) {
+      document.removeEventListener("mousemove", onMouseMove);
+      props.onEnd?.(getPercentage());
+    }
+    wasMouseDown.current = false;
+  }, [onMouseMove, props, getPercentage]);
 
   const percentToWidth = (percentage: number) => {
     if (!container) {

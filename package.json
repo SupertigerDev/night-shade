@@ -6,15 +6,15 @@
   "main": "dist/main.js",
   "scripts": {
     "electron:dev": "tsc -p tsconfig.preload.json && concurrently \"vite\" \"tsc-watch -p tsconfig-electron.json --onSuccess \\\"electron .\\\"\"",
-    "electron:build": "tsc -p tsconfig.preload.json && vite build && tsc -p tsconfig.electron.json && electron-builder --win",
+    "electron:build": "vite build && tsc -p tsconfig.preload.json && tsc -p tsconfig-electron.json && electron-builder --win",
     "dev": "vite",
     "build": "tsc -b && vite build",
-
     "lint": "eslint .",
     "preview": "vite preview"
   },
   "dependencies": {
     "@monaco-editor/react": "^4.7.0",
+    "electron-store": "^10.0.1",
     "react": "^19.0.0",
     "react-dom": "^19.0.0"
   },
@@ -26,6 +26,7 @@
     "@vitejs/plugin-react": "^4.3.4",
     "concurrently": "^9.1.2",
     "electron": "^36.1.0",
+    "electron-builder": "^26.0.12",
     "eslint": "^9.22.0",
     "eslint-plugin-react-hooks": "^5.2.0",
     "eslint-plugin-react-refresh": "^0.4.19",
@@ -34,8 +35,7 @@
     "tsc-watch": "^6.2.1",
     "typescript": "~5.7.2",
     "typescript-eslint": "^8.26.1",
-    "vite": "^6.3.1",
-    "electron-builder": "^26.0.12"
+    "vite": "^6.3.1"
   },
   "build": {
     "appId": "supertiger.night-shade",
