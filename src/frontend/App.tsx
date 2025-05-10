@@ -1,4 +1,4 @@
-import style from "./App.module.scss";
+// import style from "./App.module.scss";
 import { BrightnessPane } from "./components/BrightnessPane";
 
 function App() {

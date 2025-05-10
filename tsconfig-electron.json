@@ -1,11 +1,15 @@
 {
-  "extends": "./tsconfig.json",
   "compilerOptions": {
     "module": "NodeNext",
     "outDir": "dist",
-    "noEmit": false
+    "noEmit": false,
   },
   "include": [
     "src/electron"
   ],
+  "exclude": [
+    "node_modules",
+    "src/electron/preload.ts",
+    "src/electron/globals.d.ts"
+  ]
 }

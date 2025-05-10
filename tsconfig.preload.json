@@ -1,0 +1,15 @@
+{
+  "compilerOptions": {
+    "module": "CommonJS", 
+    "outDir": "./dist",
+    "rootDir": "./src/electron",  
+
+    "esModuleInterop": true 
+  },
+  "include": [
+    "src/electron/preload.ts"
+  ],
+  "exclude": [
+    "node_modules"
+  ]
+}
