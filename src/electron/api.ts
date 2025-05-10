@@ -1,12 +1,14 @@
 import { ipcMain } from "electron";
 import { overlayWindow } from "./overlayWindow.js";
-import Store from "electron-store";
-ipcMain.on("update-value", (event, msg) => {
+import { store } from "./store.js";
+
+ipcMain.on("update-value", (_, msg) => {
   const { key, value } = msg;
   overlayWindow.webContents.send("update-value", { key, value });
+  if (key === "brightness" && value === 0) overlayWindow.hide();
+  else overlayWindow.show();
 });
 
-const store = new Store();
 ipcMain.on("electron-store-get", async (event, val) => {
   event.returnValue = store.get(val);
 });

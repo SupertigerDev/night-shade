@@ -2,6 +2,7 @@ import { BrowserWindow } from "electron";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
 import { isPacked } from "./utils.js";
+import { store } from "./store.js";
 
 export let overlayWindow: BrowserWindow;
 
@@ -9,12 +10,14 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export const createOverlayWindow = () => {
+  const isOff = !!store.get("brightness", 50);
   overlayWindow = new BrowserWindow({
     thickFrame: false,
     autoHideMenuBar: true,
     transparent: true,
     skipTaskbar: true,
     focusable: false,
+    show: isOff,
     alwaysOnTop: true,
     fullscreen: true,
     webPreferences: {
