@@ -1,8 +1,8 @@
 import { contextBridge, ipcRenderer } from "electron";
 
 interface UpdateValue {
-  TEMPERATURE: number;
-  BRIGHTNESS: number;
+  temperature: number;
+  brightness: number;
 }
 
 export const backend = {

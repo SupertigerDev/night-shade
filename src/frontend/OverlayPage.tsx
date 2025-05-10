@@ -9,7 +9,7 @@ export const OverlayPage = () => {
 
   useEffect(() => {
     const unsubscribe = backend.onValue(({ key, value }) => {
-      if (key === "BRIGHTNESS") setState({ ...state, brightness: value / 100 });
+      if (key === "brightness") setState({ ...state, brightness: value / 100 });
     });
 
     return () => unsubscribe();
