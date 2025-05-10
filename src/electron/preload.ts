@@ -14,7 +14,15 @@ export const backend = {
       value: UpdateValue[T];
     }) => void
   ) => {
-    ipcRenderer.on("update-value", (_, msg) => callback(msg));
+    const cb = <U extends keyof UpdateValue>(
+      _: unknown,
+      msg: { key: U; value: UpdateValue[U] }
+    ) => callback(msg);
+    ipcRenderer.on("update-value", cb);
+
+    return () => {
+      ipcRenderer.off("update-value", cb);
+    };
   },
 
   store: {

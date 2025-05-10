@@ -1,6 +1,7 @@
 import { BrowserWindow } from "electron";
 import { dirname, join } from "path";
 import { fileURLToPath } from "url";
+import { isPacked } from "./utils.js";
 
 export let overlayWindow: BrowserWindow;
 
@@ -21,12 +22,14 @@ export const createOverlayWindow = () => {
     },
   });
 
-  overlayWindow.loadURL("http://localhost:5173?overlay=true");
-
-  // overlayWindow.loadFile(join(__dirname, "index.html"), {
-  //   search: "overlay=true",
-  // });
-  overlayWindow.webContents.openDevTools({ mode: "detach" });
+  if (isPacked()) {
+    overlayWindow.loadFile(join(__dirname, "index.html"), {
+      search: "overlay=true",
+    });
+  } else {
+    overlayWindow.loadURL("http://localhost:5173?overlay=true");
+    overlayWindow.webContents.openDevTools({ mode: "detach" });
+  }
 
   overlayWindow.setIgnoreMouseEvents(true);
 };

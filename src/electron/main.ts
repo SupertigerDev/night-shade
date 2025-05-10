@@ -3,6 +3,7 @@ import { fileURLToPath } from "url";
 import { dirname, join } from "path";
 import "./api.js";
 import { createOverlayWindow } from "./overlayWindow.js";
+import { isPacked } from "./utils.js";
 
 const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
@@ -19,10 +20,12 @@ function createWindow() {
     },
   });
 
-  uiWindow.loadURL("http://localhost:5173");
-
-  // uiWindow.loadFile(join(__dirname, "index.html"));
-  uiWindow.webContents.openDevTools({ mode: "detach" });
+  if (isPacked()) {
+    uiWindow.loadFile(join(__dirname, "index.html"));
+  } else {
+    uiWindow.loadURL("http://localhost:5173");
+    uiWindow.webContents.openDevTools({ mode: "detach" });
+  }
 }
 
 app.whenReady().then(() => {

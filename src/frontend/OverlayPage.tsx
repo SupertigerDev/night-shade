@@ -8,10 +8,12 @@ export const OverlayPage = () => {
   });
 
   useEffect(() => {
-    backend.onValue(({ key, value }) => {
+    const unsubscribe = backend.onValue(({ key, value }) => {
       if (key === "BRIGHTNESS") setState({ ...state, brightness: value / 100 });
     });
-  }, []);
+
+    return () => unsubscribe();
+  }, [state]);
 
   return (
     <div
@@ -20,8 +22,6 @@ export const OverlayPage = () => {
         height: "100%",
         backgroundColor: `rgba(0,0,0,${state.brightness})`,
       }}
-    >
-      <h1>Overlay</h1>
-    </div>
+    ></div>
   );
 };
