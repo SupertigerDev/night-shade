@@ -11,14 +11,12 @@ import { app, BrowserWindow, nativeTheme } from "electron";
 function createWindow() {
   // nativeTheme.themeSource = "dark";
   const mainWindow = new BrowserWindow({
-    width: 800,
+    width: 400,
     height: 600,
     // backgroundMaterial: "mica",
-
-    frame: true,
     autoHideMenuBar: true,
+    transparent: true,
     webPreferences: {
-      webSecurity: false,
       // preload: join(__dirname, "preload.js"),
     },
   });
