@@ -23,7 +23,7 @@ export const OverlayPage = () => {
         style={{
           width: "100%",
           height: "100%",
-          backgroundColor: `rgba(0,0,0,${state.brightness})`,
+          backgroundColor: `rgba(0,0,0,${state.brightness / 1.05})`,
           position: "absolute",
           zIndex: "111111",
         }}
