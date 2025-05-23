@@ -34,7 +34,7 @@ export const OverlayPage = () => {
           zIndex: "1",
           width: "100%",
           height: "100%",
-          backgroundColor: `rgba(255,255,0,${state.temperature})`,
+          backgroundColor: `rgba(255,255,0,${state.temperature / 5})`,
         }}
       ></div>
     </>
