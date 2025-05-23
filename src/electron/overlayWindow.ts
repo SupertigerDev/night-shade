@@ -10,14 +10,16 @@ const __filename = fileURLToPath(import.meta.url);
 const __dirname = dirname(__filename);
 
 export const createOverlayWindow = () => {
-  const isOff = !!store.get("brightness", 50);
+  const isOff =
+    store.get("brightness", 50) === 0 && store.get("temperature", 50) === 0;
+
   overlayWindow = new BrowserWindow({
     thickFrame: false,
     autoHideMenuBar: true,
     transparent: true,
     skipTaskbar: true,
     focusable: false,
-    show: isOff,
+    show: !isOff,
     alwaysOnTop: true,
     fullscreen: true,
     webPreferences: {

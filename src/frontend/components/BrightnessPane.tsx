@@ -16,9 +16,9 @@ export const BrightnessPane = () => {
         iconSrc={BrightnessIcon}
       />
       <Slider
-        percent={Math.abs(getStore("temperature", 50) - 100)}
-        onChange={(v) => backend.updateValue("temperature", Math.abs(v - 100))}
-        onEnd={(v) => updateStore("temperature", Math.abs(v - 100))}
+        percent={getStore("temperature", 50)}
+        onChange={(v) => backend.updateValue("temperature", v)}
+        onEnd={(v) => updateStore("temperature", v)}
         iconSrc={TemperatureIcon}
       />
     </div>
